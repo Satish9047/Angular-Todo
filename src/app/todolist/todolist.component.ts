@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { FormControl, FormsModule, NgForm } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 
 
 type ITask = {

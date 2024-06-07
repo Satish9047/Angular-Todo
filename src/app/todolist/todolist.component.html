@@ -26,7 +26,7 @@
     </div>
 
     <!-- TODO TASK -->
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-2" *ngIf="totalTasks > 0">
+    <div class="px-4 sm:mx-auto sm:w-full sm:max-w-sm mt-2" *ngIf="totalTasks > 0">
         <p class="font-bold leading-9 text-sm text-gray-400">Task Remaining <span>({{totalTasks}})</span></p>
         <ul role="list" class="">
             <li class="flex justify-between gap-x-6 py-2" *ngFor="let task of taskList; index as i">
@@ -41,22 +41,25 @@
             </li>
         </ul>
     </div>
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-2" *ngIf="totalTasks <= 0">
+    <div class=" px-4 sm:mx-auto sm:w-full sm:max-w-sm mt-2" *ngIf="totalTasks <= 0">
         <p class="font-bold leading-9 text-sm text-gray-400">Add a todo task</p>
     </div>
 
 
     <!-- COMPLETED TASK -->
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-2" *ngIf="totalCompletedTasks> 0">
-        <p class="font-bold leading-9 text-sm text-gray-400">Completed Task
-            <span>({{totalCompletedTasks}})</span><strong class="cursor-pointer" (click)="deleteAllCompleted()">Delete
+    <div class="px-4 sm:mx-auto sm:w-full sm:max-w-sm mt-2" *ngIf="totalCompletedTasks> 0">
+        <div class="flex justify-between items-center">
+            <p class="font-bold leading-9 text-sm text-gray-400">Completed Task
+                <span>({{totalCompletedTasks}})</span>
+            </p>
+            <strong class="cursor-pointer text-sm text-red-400 hover:text-red-500" (click)="deleteAllCompleted()">Delete
                 All</strong>
-        </p>
+        </div>
         <ul role="list" class="">
             <li class="flex justify-between gap-x-6 py-2" *ngFor="let task of completedTaskList; index as i">
                 <div class="flex min-w-0 gap-x-4">
                     <input type="checkbox" name="completed" checked id="completed" (change)="unCheckCompletedTask(i)">
-                    <p class="text-sm font-semibold leading-6 text-gray-900">{{task.taskName}}</p>
+                    <p class="line-through text-gray-400 text-sm font-semibold leading-6">{{task.taskName}}</p>
                 </div>
                 <div class="shrink-0 sm:flex sm:flex-col sm:items-end">
                     <button (click)="deleteCompletedTask(i)"
