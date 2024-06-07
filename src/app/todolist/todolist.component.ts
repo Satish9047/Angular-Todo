@@ -56,9 +56,9 @@ export class TodolistComponent {
   // CHECK TO COMPLETE TASK
   onCheck(index: number) {
     this.taskList[index].isCompleted = !this.taskList[index].isCompleted;
-    localStorage.setItem("taskList", JSON.stringify(this.taskList));
     this.updateCompletedTasks(index);
     this.updateTotalRemaningTasks()
+    localStorage.setItem("taskList", JSON.stringify(this.taskList));
     localStorage.setItem(
       "completedTaskList",
       JSON.stringify(this.completedTaskList),
