@@ -21,6 +21,16 @@ export class TodolistComponent {
   totalTasks: number = 0;
   totalCompletedTasks: number = 0;
 
+  constructor() {
+    this.taskList = JSON.parse(localStorage.getItem("taskList") || "[]");
+    this.completedTaskList = JSON.parse(
+      localStorage.getItem("completedTaskList") || "[]",
+    );
+
+    this.updateTotalRemaningTasks();
+    this.updateTotalCompletedTasks();
+  }
+
   // ADD TASK
   addTask(form: NgForm) {
     if (form.controls["task"].value.trim() === "") {
@@ -30,6 +40,7 @@ export class TodolistComponent {
       taskName: form.controls["task"].value,
       isCompleted: false,
     });
+    localStorage.setItem("taskList", JSON.stringify(this.taskList));
     this.task = "";
     this.updateTotalRemaningTasks();
   }
@@ -38,15 +49,20 @@ export class TodolistComponent {
   deleteTask(index: number) {
     console.log(index);
     this.taskList.splice(index, 1);
+    localStorage.setItem("taskList", JSON.stringify(this.taskList));
     this.updateTotalRemaningTasks();
   }
 
   // CHECK TO COMPLETE TASK
   onCheck(index: number) {
     this.taskList[index].isCompleted = !this.taskList[index].isCompleted;
+    localStorage.setItem("taskList", JSON.stringify(this.taskList));
     this.updateCompletedTasks(index);
-    console.log(this.taskList);
     this.updateTotalRemaningTasks()
+    localStorage.setItem(
+      "completedTaskList",
+      JSON.stringify(this.completedTaskList),
+    );
   }
 
   // DELETE COMPLETED TASK
@@ -54,7 +70,10 @@ export class TodolistComponent {
     this.completedTaskList.splice(index, 1);
     this.updateTotalRemaningTasks();
     this.updateTotalCompletedTasks()
-
+    localStorage.setItem(
+      "completedTaskList",
+      JSON.stringify(this.completedTaskList),
+    );
   }
 
   // UNCHECK COMPLETED TASK TO TASK
@@ -63,12 +82,20 @@ export class TodolistComponent {
     this.completedTaskList.splice(index, 1);
     this.updateTotalRemaningTasks();
     this.updateTotalCompletedTasks()
+    localStorage.setItem(
+      "completedTaskList",
+      JSON.stringify(this.completedTaskList),
+    );
   }
 
   // DELETE ALL COMPLETED TASKS
   deleteAllCompleted() {
     this.completedTaskList = [];
     this.updateTotalCompletedTasks();
+    localStorage.setItem(
+      "completedTaskList",
+      JSON.stringify(this.completedTaskList),
+    );
   }
 
   // UPDATE TO COMPLETED TASKS
@@ -76,7 +103,6 @@ export class TodolistComponent {
     this.completedTaskList.push(this.taskList[index]);
     this.taskList.splice(index, 1);
     this.updateTotalCompletedTasks()
-    // console.log("completed  task", this.completedTaskList);
   }
 
 
