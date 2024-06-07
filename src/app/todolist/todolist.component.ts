@@ -65,6 +65,12 @@ export class TodolistComponent {
     this.updateTotalCompletedTasks()
   }
 
+  // DELETE ALL COMPLETED TASKS
+  deleteAllCompleted() {
+    this.completedTaskList = [];
+    this.updateTotalCompletedTasks();
+  }
+
   // UPDATE TO COMPLETED TASKS
   private updateCompletedTasks(index: number) {
     this.completedTaskList.push(this.taskList[index]);
