@@ -40,4 +40,21 @@
         </ul>
     </div>
 
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
+        <p class="font-bold leading-9 text-sm text-gray-400">Completed Task <span>({{totalCompletedTasks}})</span></p>
+        <ul role="list" class="">
+            <li class="flex justify-between gap-x-6 py-2" *ngFor="let task of completedTaskList; index as i">
+                <div class="flex min-w-0 gap-x-4">
+                    <input type="checkbox" name="completed" checked id="completed" (change)="unCheckCompletedTask(i)">
+                    <p class="text-sm font-semibold leading-6 text-gray-900">{{task.taskName}}</p>
+                </div>
+                <div class="shrink-0 sm:flex sm:flex-col sm:items-end">
+                    <button (click)="deleteCompletedTask(i)"
+                        class="flex justify-center rounded-md bg-red-400 px-3 py-1 text-sm font-semibold  text-white shadow-sm hover:bg-red-500">Delete</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </div>
