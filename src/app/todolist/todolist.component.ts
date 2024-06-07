@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
-import { Component } from '@angular/core';
-import { FormControl, FormsModule, NgForm } from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormControl, FormsModule, NgForm } from "@angular/forms";
 
 
 type ITask = {
@@ -8,10 +8,10 @@ type ITask = {
   isCompleted: boolean
 }
 @Component({
-  selector: 'app-todolist',
+  selector: "app-todolist",
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './todolist.component.html'
+  templateUrl: "./todolist.component.html"
 })
 export class TodolistComponent {
   task: string = ""
@@ -20,14 +20,14 @@ export class TodolistComponent {
 
 
   addTask(form: NgForm) {
-    if (form.controls['task'].value.trim() === "") {
+    if (form.controls["task"].value.trim() === "") {
       return;
     }
     this.taskList.push({
-      taskName: form.controls['task'].value,
+      taskName: form.controls["task"].value,
       isCompleted: false,
     });
-    form.resetForm();
+    this.task = "";
     this.updateRemaningtasks();
   }
 
@@ -37,8 +37,17 @@ export class TodolistComponent {
     this.updateRemaningtasks();
   }
 
+  onCheck(index: number) {
+    this.taskList[index].isCompleted = !this.taskList[index].isCompleted;
+    console.log(this.taskList);
+  }
+
   private updateRemaningtasks() {
     this.totalTasks = this.taskList.length;
   }
+
+  // private updateCompletedTasks() {
+
+  // }
 
 }
