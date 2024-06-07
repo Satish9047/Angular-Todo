@@ -31,7 +31,13 @@ export class TodolistComponent {
     this.updateRemaningtasks();
   }
 
-  updateRemaningtasks() {
+  deleteTask(index: number) {
+    console.log(index);
+    this.taskList.splice(index, 1);
+    this.updateRemaningtasks();
+  }
+
+  private updateRemaningtasks() {
     this.totalTasks = this.taskList.length;
   }
 
