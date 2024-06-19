@@ -1,30 +1,29 @@
-import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
-import { FormsModule, NgForm } from "@angular/forms";
-
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 
 type ITask = {
-  taskName: string,
-  isCompleted: boolean
-}
+  taskName: string;
+  isCompleted: boolean;
+};
 @Component({
-  selector: "app-todolist",
+  selector: 'app-todolist',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: "./todolist.component.html"
+  templateUrl: './todolist.component.html',
 })
 export class TodolistComponent {
   //INITIAL STATE
-  task: string = ""
+  task: string = '';
   taskList: ITask[] = [];
   completedTaskList: ITask[] = [];
   totalTasks: number = 0;
   totalCompletedTasks: number = 0;
 
   constructor() {
-    this.taskList = JSON.parse(localStorage.getItem("taskList") || "[]");
+    this.taskList = JSON.parse(localStorage.getItem('taskList') || '[]');
     this.completedTaskList = JSON.parse(
-      localStorage.getItem("completedTaskList") || "[]",
+      localStorage.getItem('completedTaskList') || '[]',
     );
 
     this.updateTotalRemaningTasks();
@@ -33,15 +32,15 @@ export class TodolistComponent {
 
   // ADD TASK
   addTask(form: NgForm) {
-    if (form.controls["task"].value.trim() === "") {
+    if (form.controls['task'].value.trim() === '') {
       return;
     }
     this.taskList.push({
-      taskName: form.controls["task"].value,
+      taskName: form.controls['task'].value,
       isCompleted: false,
     });
-    localStorage.setItem("taskList", JSON.stringify(this.taskList));
-    this.task = "";
+    localStorage.setItem('taskList', JSON.stringify(this.taskList));
+    this.task = '';
     this.updateTotalRemaningTasks();
   }
 
@@ -49,7 +48,7 @@ export class TodolistComponent {
   deleteTask(index: number) {
     console.log(index);
     this.taskList.splice(index, 1);
-    localStorage.setItem("taskList", JSON.stringify(this.taskList));
+    localStorage.setItem('taskList', JSON.stringify(this.taskList));
     this.updateTotalRemaningTasks();
   }
 
@@ -57,10 +56,10 @@ export class TodolistComponent {
   onCheck(index: number) {
     this.taskList[index].isCompleted = !this.taskList[index].isCompleted;
     this.updateCompletedTasks(index);
-    this.updateTotalRemaningTasks()
-    localStorage.setItem("taskList", JSON.stringify(this.taskList));
+    this.updateTotalRemaningTasks();
+    localStorage.setItem('taskList', JSON.stringify(this.taskList));
     localStorage.setItem(
-      "completedTaskList",
+      'completedTaskList',
       JSON.stringify(this.completedTaskList),
     );
   }
@@ -69,9 +68,9 @@ export class TodolistComponent {
   deleteCompletedTask(index: number) {
     this.completedTaskList.splice(index, 1);
     this.updateTotalRemaningTasks();
-    this.updateTotalCompletedTasks()
+    this.updateTotalCompletedTasks();
     localStorage.setItem(
-      "completedTaskList",
+      'completedTaskList',
       JSON.stringify(this.completedTaskList),
     );
   }
@@ -81,9 +80,9 @@ export class TodolistComponent {
     this.taskList.push(this.completedTaskList[index]);
     this.completedTaskList.splice(index, 1);
     this.updateTotalRemaningTasks();
-    this.updateTotalCompletedTasks()
+    this.updateTotalCompletedTasks();
     localStorage.setItem(
-      "completedTaskList",
+      'completedTaskList',
       JSON.stringify(this.completedTaskList),
     );
   }
@@ -93,7 +92,7 @@ export class TodolistComponent {
     this.completedTaskList = [];
     this.updateTotalCompletedTasks();
     localStorage.setItem(
-      "completedTaskList",
+      'completedTaskList',
       JSON.stringify(this.completedTaskList),
     );
   }
@@ -102,9 +101,8 @@ export class TodolistComponent {
   private updateCompletedTasks(index: number) {
     this.completedTaskList.push(this.taskList[index]);
     this.taskList.splice(index, 1);
-    this.updateTotalCompletedTasks()
+    this.updateTotalCompletedTasks();
   }
-
 
   // TOTAL REMANING TASKS
   private updateTotalRemaningTasks() {
