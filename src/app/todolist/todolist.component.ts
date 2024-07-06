@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 type ITask = {
@@ -12,8 +12,9 @@ type ITask = {
   imports: [FormsModule, CommonModule],
   templateUrl: './todolist.component.html',
 })
-export class TodolistComponent {
+export class TodolistComponent implements OnInit {
   //INITIAL STATE
+  currentYear: number | null = null;
   task: string = '';
   taskList: ITask[] = [];
   completedTaskList: ITask[] = [];
@@ -28,6 +29,9 @@ export class TodolistComponent {
 
     this.updateTotalRemaningTasks();
     this.updateTotalCompletedTasks();
+  }
+  ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
   }
 
   // ADD TASK
